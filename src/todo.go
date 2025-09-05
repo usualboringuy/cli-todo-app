@@ -60,6 +60,7 @@ func (todos *Todos) toggle(index int) error {
 	t[index].Status = !isCompleted
 	return nil
 }
+
 func (todos *Todos) edit(index int, title string) error {
 	t := *todos
 	if err := t.validateIndex(index); err != nil {
