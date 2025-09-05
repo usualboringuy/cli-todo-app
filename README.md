@@ -35,19 +35,17 @@ You can install `todo` **globally in your local user folder** (no admin rights r
    ```
 2. Build the binary there:
    ```bash
-   go build -o ~/.local/bin/todo
+   go build -o ~/.local/bin/todo ./src
    ```
 3. Add it to your PATH (`~/.bashrc`, `~/.zshrc`, etc.):
    ```bash
-   export PATH=$HOME/.local/bin:$PATH
-   ```
-4. Reload shell:
-   ```bash
+   echo 'export PATH=$HOME/.local/bin:$PATH' >> ~/.bashrc
    source ~/.bashrc
    ```
    or
 
    ```bash
+   echo 'export PATH=$HOME/.local/bin:$PATH' >> ~/.zshrc
    source ~/.zshrc
    ```
 Now you can run:
@@ -59,21 +57,21 @@ todo -list
 
 ### Windows
 1. Create a local bin folder:
-   ```powershell
-   mkdir $env:USERPROFILE\bin
+   ```cmd
+   mkdir %USERPROFILE%\bin
    ```
 2. Build the binary there:
-   ```powershell
-   go build -o $env:USERPROFILE\bin	todo.exe
+   ```cmd
+   go build -o %USERPROFILE%\bin\todo.exe ./src
    ```
 3. Add it to PATH (permanent):
-   ```powershell
-   setx PATH "$env:PATH;$env:USERPROFILE\bin"
+   ```cmd
+   setx PATH "%PATH%;%USERPROFILE%\bin"
    ```
 4. Restart PowerShell / CMD.
 
 Now you can run:
-```powershell
+```cmd
 todo -list
 ```
 
@@ -85,11 +83,11 @@ The app supports the following flags:
 
 | Flag | Description | Example |
 |------|-------------|---------|
-| `-add "title"` | Add a new task | `./todo -add "Buy groceries"` |
-| `-edit "id:new_title"` | Edit a task’s title | `./todo -edit "1:Read DBMS notes"` |
-| `-toggle id` | Toggle task status (done/undone) | `./todo -toggle 1` |
-| `-del id` | Delete a task by id | `./todo -del 2` |
-| `-list` | Show all tasks in a table | `./todo -list` |
+| `-add "title"` | Add a new task | `todo -add "Buy groceries"` |
+| `-edit "id:new_title"` | Edit a task’s title | `todo -edit "0:Read DBMS notes"` |
+| `-toggle id` | Toggle task status (done/undone) | `todo -toggle 0` |
+| `-del id` | Delete a task by id | `todo -del 0` |
+| `-list` | Show all tasks in a table | `todo -list` |
 
 ---
 
