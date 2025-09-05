@@ -26,14 +26,56 @@ It lets you manage tasks (add, edit, delete, toggle) with persistence in a JSON 
    ```bash
    go mod tidy
    ```
-3. Build the executable:
+You can install `todo` **globally in your local user folder** (no admin rights required).
+
+### Linux / macOS
+1. Create a local bin folder:
    ```bash
-   go build -o todo
+   mkdir -p ~/.local/bin
    ```
-4. Run:
+2. Build the binary there:
    ```bash
-   ./todo -list
+   go build -o ~/.local/bin/todo
    ```
+3. Add it to your PATH (`~/.bashrc`, `~/.zshrc`, etc.):
+   ```bash
+   export PATH=$HOME/.local/bin:$PATH
+   ```
+4. Reload shell:
+   ```bash
+   source ~/.bashrc
+   ```
+   or
+
+   ```bash
+   source ~/.zshrc
+   ```
+Now you can run:
+```bash
+todo -list
+```
+
+---
+
+### Windows
+1. Create a local bin folder:
+   ```powershell
+   mkdir $env:USERPROFILE\bin
+   ```
+2. Build the binary there:
+   ```powershell
+   go build -o $env:USERPROFILE\bin	todo.exe
+   ```
+3. Add it to PATH (permanent):
+   ```powershell
+   setx PATH "$env:PATH;$env:USERPROFILE\bin"
+   ```
+4. Restart PowerShell / CMD.
+
+Now you can run:
+```powershell
+todo -list
+```
 
 ---
 
@@ -51,28 +93,6 @@ The app supports the following flags:
 
 ---
 
-## 🌍 Cross Compilation
-
-Go makes it easy to build binaries for different platforms without extra tools.
-From your project root, run:
-
-### Linux → Windows (`.exe`)
-```bash
-GOOS=windows GOARCH=amd64 go build -o todo.exe
-```
-
-### Linux → Linux (64-bit)
-```bash
-GOOS=linux GOARCH=amd64 go build -o todo
-```
-
----
-
 ### 📌 Notes
 - Replace `todo` with any name you prefer.
 - On Windows, you’ll usually want the `.exe` extension.
-
----
-
-## 📜 License
-MIT License © 2025 Anish Pechetti
