@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/aquasecurity/table"
+	"github.com/liamg/tml"
 )
 
 type Todo struct {
@@ -71,20 +72,38 @@ func (todos *Todos) edit(index int, title string) error {
 }
 
 func (todos *Todos) print() {
-	table := table.New((os.Stdout))
-	table.SetRowLines(false)
-	table.SetHeaders("#", "Title", "Status", "Created On", "Completed On")
+	tab := table.New(os.Stdout)
+	tab.SetPadding(2)
+	tab.SetHeaderStyle(table.StyleBold)
+	tab.SetLineStyle(table.StyleBrightBlue)
+	tab.SetDividers(table.UnicodeRoundedDividers)
+	tab.SetAlignment(table.AlignCenter, table.AlignLeft, table.AlignCenter, table.AlignCenter, table.AlignCenter)
+	tab.SetRowLines(false)
+	tab.SetHeaders("#", "Title", "Status", "Created On", "Completed On")
 	for index, t := range *todos {
-		status := "❌"
+		status := "Not Done"
 		completedOn := ""
-
 		if t.Status {
-			status = "✔️"
+			status = "Done"
 			if t.CompletedOn != nil {
-				completedOn = t.CompletedOn.Format(time.RFC1123)
+				completedOn = t.CompletedOn.Format("Jan 02 15:04")
+				tab.AddRow(
+					tml.Sprintf("<green>%s</green>", strconv.Itoa(index)),
+					t.Title,
+					tml.Sprintf("<green>%s</green>", status),
+					tml.Sprintf("<green>%s</green>", t.CreatedOn.Format("Jan 02 15:04")),
+					tml.Sprintf("<green>%s</green>", completedOn),
+				)
+				continue
 			}
 		}
-		table.AddRow(strconv.Itoa(index), t.Title, status, t.CreatedOn.Format(time.RFC1123), completedOn)
+		tab.AddRow(
+			tml.Sprintf("<red>%s</red>", strconv.Itoa(index)),
+			t.Title,
+			tml.Sprintf("<red>%s</red>", status),
+			tml.Sprintf("<red>%s</red>", t.CreatedOn.Format("Jan 02 15:04")),
+			tml.Sprintf("<red>%s</red>", completedOn),
+		)
 	}
-	table.Render()
+	tab.Render()
 }

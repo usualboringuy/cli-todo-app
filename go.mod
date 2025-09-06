@@ -2,7 +2,10 @@ module cli-todo-app
 
 go 1.24.2
 
-require github.com/aquasecurity/table v1.11.0
+require (
+	github.com/aquasecurity/table v1.11.0
+	github.com/liamg/tml v0.7.0
+)
 
 require (
 	github.com/mattn/go-runewidth v0.0.13 // indirect
