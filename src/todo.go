@@ -82,7 +82,7 @@ func (todos *Todos) print() {
 	tab.SetHeaders("#", "Title", "Status", "Created On", "Completed On")
 	for index, t := range *todos {
 		status := "Not Done"
-		completedOn := ""
+		completedOn := "-"
 		if t.Status {
 			status = "Done"
 			if t.CompletedOn != nil {
